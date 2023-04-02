@@ -5,25 +5,49 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 const Login = () => {
   const [contactNumber, setContactNumber] = useState();
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
+
+  const validation = () => {
+    const nameValidation = /^^[^0-9][a-z0-9]+([_-]?[a-z0-9])*$/;
+    const mobileNumberRegex = /^[6-9]\d{9}$/;
+    let isValid = true;
+
+    if (contactNumber === undefined) {
+      setError("Contact number is Required");
+      isValid = false;
+    }
+    if (contactNumber && contactNumber?.toString().length != 10) {
+      setError("InValid mobile number")
+      isValid = false;
+    }
+
+    return isValid;
+  }
   const handleLogin = (e) => {
-    console.log("handleLogin");
     e.preventDefault();
 
-    axios
-      .post("http://localhost:4000/login", {
-        contactNumber: contactNumber,
-      })
-      .then((response) => {
-        console.log("Login response ", response);
-        toast("Wow so easy!");
-        navigate("/verify");
-      })
-      .catch((err) => {
-        console.log("Login err ", err);
-      });
+    if (validation()) {
+      axios
+        .post("http://localhost:4000/login", {
+          contactNumber: contactNumber,
+        })
+        .then((response) => {
+          setError("")
+          console.log("Login response ", response);
+          toast("Wow so easy!");
+
+          navigate("/verify");
+        })
+        .catch((err) => {
+          setError("")
+          console.log("Login err ", err);
+        });
+    }
   };
+
+
 
   return (
     <div>
@@ -31,13 +55,12 @@ const Login = () => {
       <form onSubmit={handleLogin}>
         <div className="input-container">
           <input
-            // type="number"
+            type="number"
             name="contactNumber"
             placeholder="Enter Your Registered number"
-            required
             onChange={(e) => setContactNumber(e.target.value)}
           />
-          {/* {renderErrorMessage("pass")} */}
+          {error && <p style={{ color: "red" }}>{error}</p>}
         </div>
         <div className="button-container">
           <input type="submit" />

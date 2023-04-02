@@ -7,7 +7,7 @@ const Home = () => {
   const [showModel, setShowModel] = useState(false);
 
   return (
-    <Link type="set" to="/login">
+    <Link  to="/login">
       Login with Dhunn
     </Link>
     // <div className="popup">
