@@ -1,7 +1,7 @@
-import { useNavigate } from "react-router-dom";
+import { Navigate, Route, useNavigate } from "react-router-dom";
 import { isAuthenticated } from "../utils/isAuth";
 
-const PrivateRoute = ({ children }) => {
+const PrivateRoute = ({ children, ...props }) => {
   const navigate = useNavigate();
 
   console.log("isAuthenticated()", isAuthenticated());
@@ -11,6 +11,8 @@ const PrivateRoute = ({ children }) => {
   } else {
     navigate("/login");
   }
+  // return isAuthenticated() ? <Route {...props} /> : <Navigate to="/login" />;
+
 };
 
 export default PrivateRoute;

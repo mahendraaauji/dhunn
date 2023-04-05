@@ -1,0 +1,16 @@
+$ git config --global user.name mahendraaauji
+
+$ git config --global user.email mahendraaauji26@gmail.com
+
+git remote set-url origin https://mahendraaauji:5gitmes@bcodehe5@github.com/mahendraaauji/dhunn.git
+
+https://github.com/mahendraaauji/dhunn.git
+
+git clone https://username:password@github.com/username/repository.git
+
+
+
+git remote add origin https://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@github.com/mahendraaauji/dhunn.git
+
+
+git clone https://oauth-key-goes-here@github.com/username/repo.git
